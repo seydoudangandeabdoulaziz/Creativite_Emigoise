@@ -2,9 +2,9 @@
 const eventConfig = {
     // Informations sur l'événement
     eventName: "Journée de la Créativité Emigoise",
-    eventDate: "Date à définir", // Exemple: "15 Décembre 2024"
-    eventTime: "À définir", // Exemple: "09h00 - 17h00"
-    eventLocation: "À définir", // Exemple: "Campus Principal, Salle de Conférence"
+    eventDate: "Jeudi 8 Janvier 2026", // Exemple: "15 Décembre 2024"
+    eventTime: "20h30", // Exemple: "09h00 - 17h00"
+    eventLocation: "Ecole des Mines de L'industrie Et de la Geologie(EMIG)", // Exemple: "Campus Principal, Salle de Conférence"
     eventFullAddress: "Adresse complète à définir",
     
     // Informations de contact
@@ -37,6 +37,11 @@ const eventConfig = {
         primary: "#6366f1",
         secondary: "#8b5cf6",
         accent: "#ec4899"
+    },
+    
+    // Configuration administrateur - CHANGEZ CE MOT DE PASSE !
+    admin: {
+        password: "admin123" // ⚠️ CHANGEZ CE MOT DE PASSE pour votre sécurité !
     }
 };
 

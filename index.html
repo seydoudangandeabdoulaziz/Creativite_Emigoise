@@ -36,6 +36,14 @@
             <a href="#esprit-creatif" class="nav-link">Esprit Créatif</a>
             <a href="#departements" class="nav-link">Départements</a>
           </nav>
+          <div class="header-actions">
+            <button class="admin-btn" id="adminLoginBtn" title="Connexion administrateur">
+              <i class="fas fa-lock"></i> Admin
+            </button>
+            <button class="admin-btn" id="adminLogoutBtn" style="display: none;" title="Déconnexion">
+              <i class="fas fa-unlock"></i> Déconnexion
+            </button>
+          </div>
           <button class="menu-toggle" id="menuToggle">
             <i class="fas fa-bars"></i>
           </button>
@@ -281,6 +289,9 @@
               <button class="filter-btn" data-category="innovation">Innovation</button>
               <button class="filter-btn" data-category="social">Social</button>
               <button class="filter-btn" data-category="autre">Autre</button>
+              <button class="filter-btn btn-danger" id="clearAllIdeas" style="display: none;" title="Effacer toutes les idées">
+                <i class="fas fa-trash-alt"></i> Tout effacer
+              </button>
             </div>
           </div>
           <div id="ideasContainer" class="ideas-grid">
@@ -358,7 +369,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2024 Créativité Emigoise. Tous droits réservés.</p>
+          <p>&copy; 2026 Créativité Emigoise. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
@@ -373,6 +384,33 @@
 
     <!-- Notification toast -->
     <div id="toast" class="toast"></div>
+
+    <!-- Modal de connexion administrateur -->
+    <div id="adminModal" class="modal">
+      <div class="modal-content admin-modal">
+        <span class="close-modal">&times;</span>
+        <h2><i class="fas fa-shield-alt"></i> Connexion Administrateur</h2>
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label for="adminPassword">
+              <i class="fas fa-key"></i> Mot de passe administrateur
+            </label>
+            <input
+              type="password"
+              id="adminPassword"
+              placeholder="Entrez le mot de passe"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-sign-in-alt"></i> Se connecter
+          </button>
+          <p class="admin-hint">
+            <i class="fas fa-info-circle"></i> Seul l'administrateur peut supprimer les idées
+          </p>
+        </form>
+      </div>
+    </div>
 
     <script src="config.js"></script>
     <script src="departements.js"></script>

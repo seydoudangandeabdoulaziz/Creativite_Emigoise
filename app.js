@@ -1,15 +1,107 @@
 // Gestion des données
 let ideas = JSON.parse(localStorage.getItem('creativiteIdees')) || [];
 
+// Vérifier si l'administrateur est connecté
+function isAdminLoggedIn() {
+    return localStorage.getItem('adminLoggedIn') === 'true';
+}
+
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
+    checkAdminStatus();
 });
 
 function initializeApp() {
     setupEventListeners();
     loadIdeas();
     setupMobileMenu();
+    setupAdminAuth();
+}
+
+// Configuration de l'authentification admin
+function setupAdminAuth() {
+    const adminLoginBtn = document.getElementById('adminLoginBtn');
+    const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+    const adminModal = document.getElementById('adminModal');
+    const adminLoginForm = document.getElementById('adminLoginForm');
+    
+    if (!adminModal || !adminLoginForm) return;
+    
+    const closeAdminModal = adminModal.querySelector('.close-modal');
+
+    // Ouvrir la modal de connexion
+    if (adminLoginBtn) {
+        adminLoginBtn.addEventListener('click', () => {
+            adminModal.style.display = 'block';
+        });
+    }
+
+    // Fermer la modal
+    if (closeAdminModal) {
+        closeAdminModal.addEventListener('click', () => {
+            adminModal.style.display = 'none';
+            adminLoginForm.reset();
+        });
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === adminModal) {
+            adminModal.style.display = 'none';
+            adminLoginForm.reset();
+        }
+    });
+
+    // Gestion de la connexion
+    adminLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const passwordInput = document.getElementById('adminPassword');
+        if (!passwordInput) return;
+        
+        const password = passwordInput.value;
+        
+        if (password === eventConfig.admin.password) {
+            localStorage.setItem('adminLoggedIn', 'true');
+            adminModal.style.display = 'none';
+            adminLoginForm.reset();
+            checkAdminStatus();
+            showToast('Connexion réussie ! Vous pouvez maintenant supprimer les idées.', 'success');
+        } else {
+            showToast('Mot de passe incorrect', 'error');
+        }
+    });
+
+    // Gestion de la déconnexion
+    if (adminLogoutBtn) {
+        adminLogoutBtn.addEventListener('click', () => {
+            if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                localStorage.setItem('adminLoggedIn', 'false');
+                checkAdminStatus();
+                showToast('Déconnexion réussie', 'success');
+            }
+        });
+    }
+}
+
+// Vérifier et mettre à jour le statut admin
+function checkAdminStatus() {
+    const isAdmin = isAdminLoggedIn();
+    const adminLoginBtn = document.getElementById('adminLoginBtn');
+    const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+    const clearAllBtn = document.getElementById('clearAllIdeas');
+
+    if (adminLoginBtn) {
+        adminLoginBtn.style.display = isAdmin ? 'none' : 'block';
+    }
+    if (adminLogoutBtn) {
+        adminLogoutBtn.style.display = isAdmin ? 'block' : 'none';
+    }
+    if (clearAllBtn) {
+        clearAllBtn.style.display = isAdmin ? 'inline-block' : 'none';
+    }
+
+    // Recharger les idées pour afficher/masquer les boutons de suppression
+    loadIdeas();
 }
 
 // Configuration des écouteurs d'événements
@@ -25,8 +117,16 @@ function setupEventListeners() {
     // Filtres de catégorie
     const filterBtns = document.querySelectorAll('.filter-btn');
     filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => handleFilter(btn.dataset.category));
+        if (btn.id !== 'clearAllIdeas') {
+            btn.addEventListener('click', () => handleFilter(btn.dataset.category));
+        }
     });
+
+    // Bouton pour effacer toutes les idées
+    const clearAllBtn = document.getElementById('clearAllIdeas');
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', handleClearAllIdeas);
+    }
 
     // Tri (si l'élément existe)
     const sortSelect = document.getElementById('sortSelect');
@@ -115,6 +215,14 @@ function loadIdeas(filteredIdeas = null) {
         });
     });
 
+    // Ajouter les écouteurs pour les boutons de suppression
+    container.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handleDeleteIdea(parseInt(btn.dataset.id));
+        });
+    });
+
     // Ajouter les écouteurs pour ouvrir le modal
     container.querySelectorAll('.idea-card').forEach(card => {
         card.addEventListener('click', () => {
@@ -155,6 +263,11 @@ function createIdeaCard(idea) {
                         <i class="fas fa-heart"></i>
                         <span class="like-count">${idea.likes || 0}</span>
                     </button>
+                    ${isAdminLoggedIn() ? `
+                    <button class="delete-btn" data-id="${idea.id}" title="Supprimer cette idée">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    ` : ''}
                 </div>
             </div>
         </div>
@@ -184,6 +297,41 @@ function handleLike(ideaId) {
 
     saveIdeas();
     loadIdeas();
+}
+
+// Supprimer une idée individuelle
+function handleDeleteIdea(ideaId) {
+    if (!isAdminLoggedIn()) {
+        showToast('Accès refusé. Veuillez vous connecter en tant qu\'administrateur.', 'error');
+        return;
+    }
+
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette idée ?')) {
+        ideas = ideas.filter(i => i.id !== ideaId);
+        saveIdeas();
+        loadIdeas();
+        showToast('Idée supprimée avec succès', 'success');
+    }
+}
+
+// Effacer toutes les idées
+function handleClearAllIdeas() {
+    if (!isAdminLoggedIn()) {
+        showToast('Accès refusé. Veuillez vous connecter en tant qu\'administrateur.', 'error');
+        return;
+    }
+
+    if (ideas.length === 0) {
+        showToast('Aucune idée à supprimer', 'info');
+        return;
+    }
+
+    if (confirm(`Êtes-vous sûr de vouloir supprimer toutes les ${ideas.length} idée(s) ? Cette action est irréversible.`)) {
+        ideas = [];
+        saveIdeas();
+        loadIdeas();
+        showToast('Toutes les idées ont été supprimées', 'success');
+    }
 }
 
 // Obtenir un identifiant unique pour l'utilisateur
