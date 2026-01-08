@@ -8,7 +8,7 @@ const eventConfig = {
     eventFullAddress: "Adresse complète à définir",
     
     // Informations de contact
-    contactEmail: "seydoudangandeabdoulaziz@gmail.com",
+    contactEmail: "seyd...abdoulaziz@gmail.com",
     contactPhone: "+227 87 55 59 88",
     contactAddress: "Harobanda,Emig Niamey-Niger",
     
@@ -26,10 +26,10 @@ const eventConfig = {
     
     // Liens sociaux (laissez "#" si non disponibles)
     socialLinks: {
-        facebook: "#",
-        twitter: "#",
-        instagram: "#",
-        linkedin: "www.linkedin.com/in/seydou-dangande-abdoul-aziz"
+        facebook: "https://www.linkedin.com/in/seydou-dangande-abdoul-aziz",
+        twitter: "https://www.linkedin.com/in/seydou-dangande-abdoul-aziz",
+        instagram: "https://www.linkedin.com/in/seydou-dangande-abdoul-aziz",
+        linkedin: "https://www.linkedin.com/in/seydou-dangande-abdoul-aziz"
     },
     
     // Couleurs personnalisées (optionnel - pour personnalisation avancée)
