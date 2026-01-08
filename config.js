@@ -8,9 +8,9 @@ const eventConfig = {
     eventFullAddress: "Adresse complète à définir",
     
     // Informations de contact
-    contactEmail: "contact@emigoise.com",
-    contactPhone: "+227 XX XX XX XX",
-    contactAddress: "Adresse à définir",
+    contactEmail: "seydoudangandeabdoulaziz@gmail.com",
+    contactPhone: "+227 87 55 59 88",
+    contactAddress: "Harobanda,Emig Niamey-Niger",
     
     // Organisateurs
     organisateurs: "Comité d'organisation de la Journée de la Créativité Emigoise",
@@ -29,7 +29,7 @@ const eventConfig = {
         facebook: "#",
         twitter: "#",
         instagram: "#",
-        linkedin: "#"
+        linkedin: "www.linkedin.com/in/seydou-dangande-abdoul-aziz"
     },
     
     // Couleurs personnalisées (optionnel - pour personnalisation avancée)
