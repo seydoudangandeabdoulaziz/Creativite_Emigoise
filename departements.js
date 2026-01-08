@@ -29,70 +29,34 @@ const departementsData = [
         ]
     },
     {
-        id: 'mathematiques',
-        nom: 'Automatique et informatoque industrielle ',
-        description: 'Département de mathématiques appliquées et théoriques',
-        icon: 'fas fa-calculator',
-        filieres: [
-            {
-                id: 'mathematiques-pures',
-                nom: 'Mathématiques Pures',
-                description: 'Formation en mathématiques fondamentales',
-                matieres: [
-                    { nom: 'Algèbre Linéaire', credits: 6 },
-                    { nom: 'Analyse Mathématique', credits: 6 },
-                    { nom: 'Géométrie', credits: 4 },
-                    { nom: 'Théorie des Nombres', credits: 4 },
-                    { nom: 'Topologie', credits: 5 }
-                ]
-            },
-            {
-                id: 'mathematiques-appliquees',
-                nom: 'Mathématiques Appliquées',
-                description: 'Formation en mathématiques pour l\'ingénierie',
-                matieres: [
-                    { nom: 'Analyse Numérique', credits: 5 },
-                    { nom: 'Probabilités et Statistiques', credits: 6 },
-                    { nom: 'Recherche Opérationnelle', credits: 5 },
-                    { nom: 'Modélisation Mathématique', credits: 5 },
-                    { nom: 'Simulation Numérique', credits: 4 }
-                ]
-            }
-        ]
+        id: 'MECANIQUE',
+        nom: 'Mecanique',
+        description: 'Département mecanique',
+        icon: 'fas fa-chart-line',
+        filieres: []
+    },
+
+    {
+        id: 'MINES ET GEOLOGIE',
+        nom: 'Mines et Geologie',
+        description: 'Département des mines et geologie',
+        icon: 'fas fa-chart-line',
+        filieres: []
     },
     {
-        id: 'Energie Renouvelables(OER)',
-        nom: 'Electromecanique',
-        description: 'Département d\'économie et gestion',
+        id: 'ELECTRICITE',
+        nom: 'Electricite',
+        description: 'Département electrique',
         icon: 'fas fa-chart-line',
-        filieres: [
-            {
-                id: 'economie-generale',
-                nom: 'Économie Générale',
-                description: 'Formation en économie théorique et appliquée',
-                matieres: [
-                    { nom: 'Microéconomie', credits: 6 },
-                    { nom: 'Macroéconomie', credits: 6 },
-                    { nom: 'Économétrie', credits: 5 },
-                    { nom: 'Politique Économique', credits: 4 },
-                    { nom: 'Économie du Développement', credits: 4 }
-                ]
-            },
-            {
-                id: 'gestion',
-                nom: 'Energie Renouvelables(OER)',
-                description: 'Formation en gestion d\'entreprise',
-                matieres: [
-                    { nom: 'Comptabilité Générale', credits: 5 },
-                    { nom: 'Gestion Financière', credits: 5 },
-                    { nom: 'Marketing', credits: 4 },
-                    { nom: 'Ressources Humaines', credits: 4 },
-                    { nom: 'Stratégie d\'Entreprise', credits: 4 }
-                ]
-            }
-        ]
+        filieres: []
     },
-    
+    {
+        id: 'GEOSCIENCE',
+        nom: 'Geoscience',
+        description: 'Département GEOSCIENCE',
+        icon: 'fas fa-chart-line',
+        filieres: []
+    },
 ];
 
 // Fonction pour initialiser l'affichage des départements
